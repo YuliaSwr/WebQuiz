@@ -1,23 +1,21 @@
-package engine;
+package app.web.quiz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.*;
 
 @Getter
 @Setter
+@Entity
 public class Question {
 
-    private static int generatedId = 0;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private final int id = generatedId++;
+    private int id;
 
     @NotBlank
     private String title;
@@ -25,10 +23,14 @@ public class Question {
     @NotBlank
     private String text;
 
+    @NonNull
+    @ElementCollection
     @NotNull
     @Size(min = 2)
-    private String[] options;
+    private List<String> options;
 
+    @NonNull
+    @ElementCollection
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Integer> answer = new ArrayList<>();
 }
