@@ -15,19 +15,23 @@ public class QuizService {
         this.quizRepo = quizRepo;
     }
 
-    public void saveQuestion(Question question) {
+    public void save(Question question) {
         quizRepo.save(question);
     }
 
-    public Question getQuestionById(int id) {
+    public Question getById(int id) {
         return quizRepo.findById(id).get();
     }
 
-    public List<Question> getAllQuestions() {
+    public List<Question> getAll() {
         return quizRepo.findAll();
     }
 
     public boolean existById(int id) {
         return quizRepo.existsById(id);
+    }
+
+    public void delete(Question quiz) {
+        quizRepo.deleteById((quiz.getId()));
     }
 }
