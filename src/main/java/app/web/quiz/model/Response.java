@@ -1,6 +1,7 @@
-package app.web.quiz;
+package app.web.quiz.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

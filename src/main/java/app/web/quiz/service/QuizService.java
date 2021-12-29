@@ -1,9 +1,13 @@
-package app.web.quiz;
+package app.web.quiz.service;
 
+import app.web.quiz.model.Question;
+import app.web.quiz.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class QuizService {
@@ -23,8 +27,9 @@ public class QuizService {
         return quizRepo.findById(id).get();
     }
 
-    public List<Question> getAll() {
-        return quizRepo.findAll();
+    public Page<Question> getAll(int pageNum) {
+        Pageable paging = PageRequest.of(pageNum, 10, Sort.by("id").ascending());
+        return quizRepo.findAll(paging);
     }
 
     public boolean existById(int id) {
