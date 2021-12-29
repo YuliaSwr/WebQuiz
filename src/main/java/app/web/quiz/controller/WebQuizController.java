@@ -39,28 +39,11 @@ public class WebQuizController {
         List<Integer> rightAnswers =  quizService.getById(id).getAnswer().stream().sorted().collect(Collectors.toList());
         List<Integer> userAnswers = answer.get("answer").stream().sorted().collect(Collectors.toList());
 
-        /*if ((rightAnswers.isEmpty() && !userAnswers.isEmpty()) || (!rightAnswers.isEmpty() && userAnswers.isEmpty())) {
-            return new Response(false);
-        }*/
-
         if(rightAnswers.equals(userAnswers)) {
             completedQuizService.save(new CompletedQuiz(id, LocalDateTime.now(), user.getId()));
             return new Response(true);
         }
-/*
-        if (!rightAnswers.isEmpty() && !userAnswers.isEmpty()) {
-            boolean isRightAnswer = true;
-            for (Integer rightAnswer : rightAnswers) {
-                if (!userAnswers.contains(rightAnswer)) {
-                    isRightAnswer = false;
-                    break;
-                }
-            }
-            if (rightAnswers.size() != userAnswers.size() || !isRightAnswer) {
-                return new Response(false);
-            }
-        }
-*/
+
         return new Response(false);
     }
 
